@@ -7,6 +7,11 @@ import { listCommand } from './commands/list.js';
 import { topCommand } from './commands/top.js';
 import { showCommand } from './commands/show.js';
 import { deleteCommand } from './commands/delete.js';
+import { exportCommand } from './commands/export-cmd.js';
+import { importCommand } from './commands/import-cmd.js';
+import { editCommand } from './commands/edit.js';
+import { tagsCommand } from './commands/tags.js';
+import { categoriesCommand } from './commands/categories.js';
 
 program
   .name('quiver')
@@ -75,5 +80,38 @@ program
   .description('Delete a prompt')
   .option('--force', 'Skip confirmation')
   .action(deleteCommand);
+
+program
+  .command('export')
+  .description('Export prompts to JSON or YAML')
+  .option('--format <fmt>', 'Output format: json or yaml (default: json)')
+  .option('--category <category>', 'Filter by category')
+  .option('--tag <tag>', 'Filter by tag')
+  .option('--output <file>', 'Write to file instead of stdout')
+  .action(exportCommand);
+
+program
+  .command('import <file>')
+  .description('Import prompts from a JSON or YAML file')
+  .option('--overwrite', 'Overwrite existing prompts with same name')
+  .option('--dry-run', 'Preview changes without writing')
+  .action(importCommand);
+
+program
+  .command('edit <name>')
+  .description('Open a prompt in $EDITOR')
+  .action(editCommand);
+
+program
+  .command('tags')
+  .description('List all tags with prompt counts')
+  .option('--json', 'Output as JSON')
+  .action(tagsCommand);
+
+program
+  .command('categories')
+  .description('List all categories with prompt counts')
+  .option('--json', 'Output as JSON')
+  .action(categoriesCommand);
 
 program.parse();
