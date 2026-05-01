@@ -1,0 +1,12 @@
+{
+  "description": "Load top prompts at session start for awareness",
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "quiver top 5 --json 2>/dev/null || echo '[]'",
+        "timeout": 5
+      }
+    ]
+  }
+}

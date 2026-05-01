@@ -2,7 +2,7 @@ import os from 'os';
 import path from 'path';
 
 export function getDataDir(): string {
-  return path.join(os.homedir(), '.prompt-manager');
+  return path.join(os.homedir(), '.quiver');
 }
 
 export function getDbPath(): string {

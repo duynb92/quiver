@@ -1,10 +1,10 @@
 {
-  "name": "prompt-manager-cli",
+  "name": "quiver",
   "version": "1.0.0",
-  "description": "Prompt manager CLI — save, search, and reuse prompts",
+  "description": "Quiver — save, search, and reuse prompts",
   "type": "module",
   "bin": {
-    "pm": "./dist/index.js"
+    "quiver": "./dist/index.js"
   },
   "scripts": {
     "build": "tsup",

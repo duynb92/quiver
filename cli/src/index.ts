@@ -9,9 +9,9 @@ import { showCommand } from './commands/show.js';
 import { deleteCommand } from './commands/delete.js';
 
 program
-  .name('pm')
+  .name('quiver')
   .version('1.0.0')
-  .description('Prompt manager CLI — save, search, and reuse prompts');
+  .description('Quiver — save, search, and reuse prompts');
 
 program
   .command('init')

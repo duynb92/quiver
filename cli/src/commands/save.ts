@@ -31,7 +31,7 @@ export async function saveCommand(name: string, options: SaveOptions): Promise<v
   } else {
     console.error(
       'Error: No content provided. Use --content, --file, or --stdin.\n' +
-        'Example: pm save my-prompt --content "Hello {{name}}"'
+        'Example: quiver save my-prompt --content "Hello {{name}}"'
     );
     process.exit(2);
   }
@@ -68,7 +68,7 @@ export async function saveCommand(name: string, options: SaveOptions): Promise<v
     );
   } catch (err: unknown) {
     if (err instanceof Error && err.message.includes('UNIQUE constraint failed')) {
-      console.error(`Error: Prompt '${name}' already exists. Use 'pm edit ${name}' to modify.`);
+      console.error(`Error: Prompt '${name}' already exists. Use 'quiver edit ${name}' to modify.`);
       process.exit(2);
     }
     throw err;
