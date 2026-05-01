@@ -1,0 +1,27 @@
+{
+  "name": "prompt-manager-cli",
+  "version": "1.0.0",
+  "description": "Prompt manager CLI — save, search, and reuse prompts",
+  "type": "module",
+  "bin": {
+    "pm": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.9.1",
+    "commander": "^12.1.0",
+    "nanoid": "^5.0.7"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^20.17.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}

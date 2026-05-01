@@ -1,0 +1,37 @@
+[
+  {
+    "name": "code-review",
+    "content": "Review this {{language:TypeScript}} code for {{review_type:security}} issues.",
+    "description": "Code review prompt",
+    "category": "development",
+    "tags": "review,quality"
+  },
+  {
+    "name": "explain-code",
+    "content": "Explain this code section by section. Use {{detail_level:simple}} language.",
+    "description": "Explain code clearly",
+    "category": "development",
+    "tags": "explain,learning"
+  },
+  {
+    "name": "write-tests",
+    "content": "Generate {{test_framework:vitest}} unit tests for this {{language:TypeScript}} code.",
+    "description": "Generate unit tests",
+    "category": "development",
+    "tags": "testing,quality"
+  },
+  {
+    "name": "debug-error",
+    "content": "Debug this error with step-by-step analysis: {{error_message}}",
+    "description": "Debug an error",
+    "category": "development",
+    "tags": "debug,errors"
+  },
+  {
+    "name": "summarize",
+    "content": "Summarize the following text in {{length:3}} sentences: {{text}}",
+    "description": "Summarize text",
+    "category": "writing",
+    "tags": "summary,writing"
+  }
+]
