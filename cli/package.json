@@ -1,17 +1,36 @@
 {
-  "name": "quiver",
+  "name": "@duynb/quiver",
   "version": "1.0.0",
   "description": "Quiver — save, search, and reuse prompts",
   "type": "module",
   "bin": {
     "quiver": "./dist/index.js"
   },
+  "files": [
+    "dist/",
+    "skills/",
+    "hooks/"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest run",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "prepack": "npm run build && cp -r ../skills ./skills && cp -r ../hooks ./hooks",
+    "postpack": "rm -rf ./skills ./hooks"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/duynb92/quiver.git"
+  },
+  "license": "MIT",
+  "keywords": ["prompt", "cli", "claude", "ai", "template"],
   "dependencies": {
     "better-sqlite3": "^11.9.1",
     "commander": "^12.1.0",

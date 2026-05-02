@@ -1,4 +1,6 @@
 import { program } from 'commander';
+
+declare const __VERSION__: string;
 import { initCommand } from './commands/init.js';
 import { saveCommand } from './commands/save.js';
 import { loadCommand } from './commands/load.js';
@@ -12,10 +14,12 @@ import { importCommand } from './commands/import-cmd.js';
 import { editCommand } from './commands/edit.js';
 import { tagsCommand } from './commands/tags.js';
 import { categoriesCommand } from './commands/categories.js';
+import { installSkillsCommand } from './commands/install-skills.js';
+import { uninstallSkillsCommand } from './commands/uninstall-skills.js';
 
 program
   .name('quiver')
-  .version('1.0.0')
+  .version(__VERSION__)
   .description('Quiver — save, search, and reuse prompts');
 
 program
@@ -113,5 +117,18 @@ program
   .description('List all categories with prompt counts')
   .option('--json', 'Output as JSON')
   .action(categoriesCommand);
+
+program
+  .command('install-skills')
+  .description('Install Quiver skills into an AI coding assistant')
+  .option('--claude', 'Install skills for Claude Code')
+  .option('--hooks', 'Also install session hooks')
+  .action(installSkillsCommand);
+
+program
+  .command('uninstall-skills')
+  .description('Remove Quiver skills from an AI coding assistant')
+  .option('--claude', 'Remove skills from Claude Code')
+  .action(uninstallSkillsCommand);
 
 program.parse();

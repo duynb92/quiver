@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "workspaces": [
+    "cli"
+  ],
+  "scripts": {
+    "build": "npm run build -w cli",
+    "test": "npm run test -w cli"
+  },
+  "name": "",
+  "version": ""
+}
