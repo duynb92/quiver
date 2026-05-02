@@ -1,0 +1,74 @@
+name: Publish
+
+# Triggered by pushing a version tag: git tag v1.0.0 && git push origin v1.0.0
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+# Setup required before this workflow can run:
+#
+# 1. NPM_TOKEN — npm automation token
+#    a. Go to npmjs.com → Account → Access Tokens → Generate New Token → Automation
+#    b. Copy the token
+#    c. In this GitHub repo: Settings → Secrets and variables → Actions → New repository secret
+#       Name: NPM_TOKEN   Value: <the token you copied>
+#
+# 2. HOMEBREW_TAP_TOKEN — GitHub PAT for pushing to duynb92/homebrew-tap
+#    a. GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens
+#    b. Generate a token scoped to the duynb92/homebrew-tap repo with Contents: Read and Write
+#    c. Add it as a repo secret (same place as above):
+#       Name: HOMEBREW_TAP_TOKEN   Value: <the token>
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # required for npm provenance attestation
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - run: npm install
+
+      - run: npm publish -w cli --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  homebrew-update:
+    needs: publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout homebrew-tap
+        uses: actions/checkout@v4
+        with:
+          repository: duynb92/homebrew-tap
+          token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+
+      - name: Update formula URL and SHA
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          URL="https://registry.npmjs.org/@duynb/quiver/-/quiver-${VERSION}.tgz"
+          # Wait briefly for npm registry to propagate the new tarball
+          sleep 10
+          SHA=$(curl -fsSL "$URL" | shasum -a 256 | awk '{print $1}')
+          sed -i "s|url \".*\"|url \"${URL}\"|" Formula/quiver.rb
+          sed -i "s|sha256 \".*\"|sha256 \"${SHA}\"|" Formula/quiver.rb
+
+      - name: Commit and push
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Formula/quiver.rb
+          git commit -m "Update quiver to v${VERSION}"
+          git push
