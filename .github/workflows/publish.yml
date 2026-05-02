@@ -37,7 +37,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
 
-      - run: npm install --include=optional
+      - run: npm install
 
       - run: npm publish -w cli --provenance --access public
         env:
