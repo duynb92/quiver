@@ -58,7 +58,7 @@ jobs:
       - name: Update formula URL and SHA
         run: |
           VERSION="${GITHUB_REF_NAME}"
-          URL="https://registry.npmjs.org/@duynb/quiver/-/quiver-${VERSION}.tgz"
+          URL="https://registry.npmjs.org/@duynb92/quiver/-/quiver-${VERSION}.tgz"
           # Wait briefly for npm registry to propagate the new tarball
           sleep 10
           SHA=$(curl -fsSL "$URL" | shasum -a 256 | awk '{print $1}')

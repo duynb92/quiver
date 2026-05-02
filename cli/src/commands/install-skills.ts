@@ -73,7 +73,7 @@ export function installSkillsCommand(options: { claude?: boolean; hooks?: boolea
   const skillsSource = candidates.find((p) => fs.existsSync(p));
   if (!skillsSource) {
     console.error(
-      `Skills directory not found (tried: ${candidates.join(', ')}). Try reinstalling @duynb/quiver.`
+      `Skills directory not found (tried: ${candidates.join(', ')}). Try reinstalling @duynb92/quiver.`
     );
     process.exit(1);
   }
